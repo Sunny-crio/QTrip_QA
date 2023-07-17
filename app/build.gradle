@@ -31,7 +31,7 @@ dependencies {
 }
 
 // Additional config for Crio workspace
-buildDir = '/tmp/external_build'
+buildDir = '/tmp/external_build'    
 
 task startScript(type:Exec) {
     commandLine '../selenium-run.sh'
@@ -43,6 +43,7 @@ test.dependsOn startScript
 
 test {
     useTestNG() {
+         suites 'src/test/java/qtriptest/tests/testng.xml'
         useDefaultListeners = true // generates the test report
     }
 
@@ -68,3 +69,4 @@ test {
     test.outputs.upToDateWhen {false}
 
 }
+mainClassName = 'com.crio.qtriptest.tests.App'
