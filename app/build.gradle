@@ -43,7 +43,7 @@ test.dependsOn startScript
 
 test {
     useTestNG() {
-         suites 'src/test/java/qtriptest/tests/testng.xml'
+         suites 'src/test/java/qtriptest/testng.xml'
         useDefaultListeners = true // generates the test report
     }
 

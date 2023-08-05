@@ -9,7 +9,7 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.testng.annotations.Test;
 
 public class RegisterPage {
-    RemoteWebDriver driver;
+     RemoteWebDriver driver;
 
      @FindBy(name="email")
     WebElement email;
@@ -20,11 +20,17 @@ public class RegisterPage {
     @FindBy(xpath="*//div//button[text()='Register Now']")
     WebElement registerbutton;
   
-
+  String url="https://qtripdynamic-qa-frontend.vercel.app/pages/register/";
     
     public RegisterPage(RemoteWebDriver driver) {
-        this.driver = driver;
+       this.driver = driver;
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
+    }
+
+    public void navigatetoRegisterpage()
+    { if (!this.driver.getCurrentUrl().equals(this.url)) {
+      this.driver.get(this.url);
+  }
     }
   
     @Test

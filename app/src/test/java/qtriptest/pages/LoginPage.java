@@ -9,7 +9,8 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 public class LoginPage {
 
     RemoteWebDriver driver;
-    @FindBy(xpath="*//input[@name='email']")
+    //@FindBy(xpath="*//input[@name='email']")
+    @FindBy(xpath ="*//input[@id='floatingInput']")
     WebElement Email;
     @FindBy(xpath="*//input[@name='password']")
     WebElement Password;
@@ -21,10 +22,13 @@ public class LoginPage {
     public LoginPage(RemoteWebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
+
+        
     }
 
     
-    public void performlogin(String username, String password){
+    public void performlogin(String username, String password) throws InterruptedException{
+        Thread.sleep(2000);
       
         Email.sendKeys(username);
         Password.sendKeys(password);

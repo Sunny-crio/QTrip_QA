@@ -3,8 +3,10 @@ package qtriptest.Utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Iterator;
 import javax.sound.midi.Soundbank;
 import org.apache.poi.hssf.record.cf.DataBarFormatting;
+import org.apache.poi.sl.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -20,15 +22,19 @@ public class ExcelUtils {
     //         System.out.println();
     //     }
     // }
+ 
 
     public static String[][] getDatafromExcel(String sheetName) {
         try {
-            File excelDataFile = new File("src/test/resources/DatasetsforQTrip.xlsx");
+            File excelDataFile = new File("app/src/test/resources/DatasetsforQTrip.xlsx");
             FileInputStream fileinput = new FileInputStream(excelDataFile);
 
+            
+           
             // Initiate the excel workbook
             XSSFWorkbook workbook = new XSSFWorkbook(fileinput);
             XSSFSheet sheet = workbook.getSheet(sheetName);
+          
             int rowCount = sheet.getPhysicalNumberOfRows();
             System.out.println(rowCount);
             int colcount = sheet.getRow(0).getLastCellNum();
@@ -73,6 +79,10 @@ public class ExcelUtils {
 
     public static void main(String[] args) {
         ExcelUtils.getDatafromExcel("TestCase01");
+        ExcelUtils.getDatafromExcel("TestCase02");
+        ExcelUtils.getDatafromExcel("TestCase03");
+        
+        
     }
 }
 
