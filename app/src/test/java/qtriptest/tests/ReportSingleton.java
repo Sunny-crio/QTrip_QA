@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.Timestamp;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
+import org.testng.annotations.AfterSuite;
 
 
 public class ReportSingleton {
@@ -56,18 +57,18 @@ public class ReportSingleton {
         return null;
     }
 
-}
-//     // Method to close the report and perform cleanup
-//     public void closeReport() {
-//         if (report != null) {
-//             report.endTest(test);
-//             //  report.flush();
-//              report.close();
-//         }
-//     }
-//     @AfterSuite
-//     public void tearDownSuite() {
-//         closeReport();
+
+    // Method to close the report and perform cleanup
+    public void closeReport() {
+        if (report != null) {
+            report.endTest(test);
+            //  report.flush();
+             report.close();
+        }
+    }
+    @AfterSuite
+    public void tearDownSuite() {
+        closeReport();
         
-//     }
-// }
+    }
+}
