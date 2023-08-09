@@ -11,30 +11,50 @@ import qtriptest.pages.RegisterPage;
 import java.net.MalformedURLException;
 import java.sql.Timestamp;
 import java.util.concurrent.TimeUnit;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class testCase_04 {
+  static RemoteWebDriver driver;
 
-    static RemoteWebDriver driver;
+  static ExtentReports report;
+  static ExtentTest test;
+  static ReportSingleton rs1;
+ // Method to help us log our Unit Tests
+ public static void logStatus(String type, String message, String status) {
+     System.out.println(String.format("%s |  %s  |  %s | %s",
+             String.valueOf(java.time.LocalDateTime.now()), type, message, status));
+ }
 
-    @BeforeTest(alwaysRun=true)
-    public static void createDriver() throws MalformedURLException {
-    
-        // final DesiredCapabilities capabilities = new DesiredCapabilities();
-        // capabilities.setBrowserName(BrowserType.CHROME);
-        // driver = new RemoteWebDriver(new URL("http://localhost:8082/wd/hub"), capabilities); // This line creates a new instance of RemoteWebDriver in each test class
-    
-        driver=DriverSingleton.createDriver();
-    
-        driver.manage().window().maximize();
-    }
+ // Iinitialize webdriver for our Unit Tests
+ @BeforeSuite(alwaysRun = true, enabled = true)
+ public static void createDriver() throws MalformedURLException {
+     logStatus("driver", "Initializing driver", "Started");
+     driver=DriverSingleton.getDriverInstance("chrome");
+     rs1 = ReportSingleton.getInstanceOfSingleTonReportClass();
+     test = rs1.getTest();
+     logStatus("driver", "Initializing driver", "Success");
+      //create an instance of extent reports
+      //report= new ExtentReports("app/src/test/java/qtriptest/reports/qkartTest_Testcase04.html", true);
+
+      //start a new test
+     // test=report.startTest("QKart Regression report"); 
+
+     report = rs1.getReport();
+
+     // start a new test
+   test = report.startTest("QKart Regression report");
+ }
 
     @Test(dataProvider="DatasetsforQTrip", dataProviderClass=DP.class, enabled=true, description = "verify Relaibility flow" , priority = 4, groups={"Reliability Flow"})
     public void TestCase04(String NewUserName, String Password,String dataset1,String dataset2,String dataset3) throws Exception
     {
-      driver=DriverSingleton.createDriver();
+     
     
       driver.manage().window().maximize();
        driver.get("https://qtripdynamic-qa-frontend.vercel.app/");
@@ -126,6 +146,7 @@ public class testCase_04 {
 
  HistoryPage historypage= new HistoryPage(driver);
  historypage.getTransactionId();
+ test.log(LogStatus.PASS, " testcase 4 successfull  ");
 
 
     }  

@@ -15,21 +15,18 @@ private static RemoteWebDriver driver = null;
 
     
 @BeforeTest(alwaysRun=true)
-public static RemoteWebDriver createDriver() throws MalformedURLException {
-
-    if(driver==null){
-
-    final DesiredCapabilities capabilities = new DesiredCapabilities();
-    capabilities.setBrowserName(BrowserType.CHROME);
-    driver = new RemoteWebDriver(new URL("http://localhost:8082/wd/hub"), capabilities); // This line creates a new instance of RemoteWebDriver in each test class
-
-    driver.manage().window().maximize();
-    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    public static RemoteWebDriver getDriverInstance(String browserType) throws MalformedURLException{
+       if(driver==null){
+        switch(browserType){
+            case "chrome":
+            final DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setBrowserName(BrowserType.CHROME);
+            driver = new RemoteWebDriver(new URL("http://localhost:8082/wd/hub"), capabilities);
+            driver.manage().window().maximize();
+            break;
+          }
+    
+        }
+        return driver;
+      }
     }
-    return driver;
-        
-
-}
-
-
-}

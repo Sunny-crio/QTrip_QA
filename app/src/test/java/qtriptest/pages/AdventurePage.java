@@ -1,5 +1,4 @@
- package qtriptest.pages;
-
+package qtriptest.pages;
 import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -35,10 +34,6 @@ public class AdventurePage {
    @FindBy(xpath="*//img[@class='img-responsive']")
    WebElement adventureimgclick;
 
-
-
-    
-    
     public AdventurePage(RemoteWebDriver driver)
     {
         this.driver = driver;
@@ -171,8 +166,7 @@ public boolean unfilteredresult(String unfilteredresult)
     if(driver.getCurrentUrl().contains("https://qtripdynamic-qa-frontend.vercel.app/pages/adventures/detail/?adventure="))
     {
         System.out.println(true);
-    }
-    
+    }    
 
  }
 

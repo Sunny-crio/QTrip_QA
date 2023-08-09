@@ -11,28 +11,48 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.concurrent.TimeUnit;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class testCase_03 {
 
     static RemoteWebDriver driver;
+    public String lastUsername;
+    static ExtentReports report;
+    static ExtentTest test;
+    static ReportSingleton rs1;
+   // Method to help us log our Unit Tests
+   public static void logStatus(String type, String message, String status) {
+       System.out.println(String.format("%s |  %s  |  %s | %s",
+               String.valueOf(java.time.LocalDateTime.now()), type, message, status));
+   }
 
-    // @BeforeTest(alwaysRun=true)
-    // public static void createDriver() throws MalformedURLException {
-    
-    //     // final DesiredCapabilities capabilities = new DesiredCapabilities();
-    //     // capabilities.setBrowserName(BrowserType.CHROME);
-    //     // driver = new RemoteWebDriver(new URL("http://localhost:8082/wd/hub"), capabilities); // This line creates a new instance of RemoteWebDriver in each test class
-    
-    //     driver=DriverSingleton.createDriver();
-    
-    //     driver.manage().window().maximize();
-    // }
-    
+   // Iinitialize webdriver for our Unit Tests
+ @BeforeSuite(alwaysRun = true, enabled = true)
+   public static void createDriver() throws MalformedURLException {
+       logStatus("driver", "Initializing driver", "Started");
+       driver=DriverSingleton.getDriverInstance("chrome");
+       rs1 = ReportSingleton.getInstanceOfSingleTonReportClass();
+       test = rs1.getTest();
+       logStatus("driver", "Initializing driver", "Success");
+      //create an instance of extent reports
+     // report= new ExtentReports("app/src/test/java/qtriptest/reports/qkartTest_Testcase03.html", true);
+
+      //start a new test
+     // test=report.startTest("QKart Regression report"); 
+
+     report = rs1.getReport();
+
+     // start a new test
+   test = report.startTest("QKart Regression report");
+   }
 
     
     @Test(dataProvider="DatasetsforQTrip", dataProviderClass=DP.class, enabled=true,description = "verify booking and cancellation flow" , priority = 3, groups={"Booking and Cancellation Flow"})
@@ -40,7 +60,7 @@ public class testCase_03 {
     {
       
        
-       driver=DriverSingleton.createDriver();
+      
 
        RegisterPage registerp= new RegisterPage(driver);
 
@@ -92,7 +112,10 @@ public class testCase_03 {
 
         adventuredetailspage.verifyAdventureBooking();
 
-        adventuredetailspage.reservationClick();        
+        adventuredetailspage.reservationClick();    
+        
+        
+      test.log(LogStatus.PASS, " testcase 3 successfull  ");
 
     }
 
