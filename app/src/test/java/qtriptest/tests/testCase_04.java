@@ -148,6 +148,8 @@ public class testCase_04 {
  historypage.getTransactionId();
  test.log(LogStatus.PASS, " testcase 4 successfull  ");
 
+ rs1.closeReport();
+
 
     }  
 
