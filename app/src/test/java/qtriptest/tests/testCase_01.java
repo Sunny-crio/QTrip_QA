@@ -70,7 +70,7 @@ public class testCase_01 {
        Username = Username + String.valueOf(timestamp.getTime());
        Password = Password + String.valueOf(timestamp.getTime());
      
-       System.out.println(Username + Password);
+       System.out.println(Username + " " +Password);
 
       
       RegisterPage registerp= new RegisterPage(driver);
