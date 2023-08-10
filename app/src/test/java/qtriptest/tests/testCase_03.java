@@ -99,7 +99,9 @@ public class testCase_03 {
 
         homepage.search_city(SearchCity);
 
-        Thread.sleep(1000);
+        
+
+        Thread.sleep(2000);
 
         AdventurePage adventure = new AdventurePage(driver);
 
@@ -115,7 +117,7 @@ public class testCase_03 {
         adventuredetailspage.reservationClick();    
         
         
-      test.log(LogStatus.PASS, " testcase 3 successfull  ");
+       test.log(LogStatus.PASS, " testcase 3 successfull  ");
 
     }
 
